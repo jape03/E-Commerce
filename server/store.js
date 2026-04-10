@@ -1,4 +1,4 @@
-/* global Buffer */
+/* global Buffer process */
 import { readFile, writeFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import path from "node:path";
@@ -16,6 +16,9 @@ const defaultStore = {
   orders: [],
 };
 
+let memoryStore = { ...defaultStore };
+const isVercel = process.env.VERCEL === "1";
+
 const normalizeStore = (store) => ({
   users: Array.isArray(store?.users) ? store.users : [],
   sessions: Array.isArray(store?.sessions) ? store.sessions : [],
@@ -24,22 +27,33 @@ const normalizeStore = (store) => ({
 });
 
 export const getStore = async () => {
+  if (isVercel) {
+    return normalizeStore(memoryStore);
+  }
+
   if (!existsSync(STORE_PATH)) {
     await saveStore(defaultStore);
     return { ...defaultStore };
   }
 
-  const content = await readFile(STORE_PATH, "utf8");
   try {
+    const content = await readFile(STORE_PATH, "utf8");
     return normalizeStore(JSON.parse(content));
   } catch {
-    await saveStore(defaultStore);
+    memoryStore = normalizeStore(defaultStore);
+    await saveStore(memoryStore);
     return { ...defaultStore };
   }
 };
 
 export const saveStore = async (store) => {
   const normalized = normalizeStore(store);
+  memoryStore = normalized;
+
+  if (isVercel) {
+    return;
+  }
+
   await writeFile(STORE_PATH, JSON.stringify(normalized, null, 2), "utf8");
 };
 
