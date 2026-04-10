@@ -260,4 +260,11 @@ app.get("/api/health", (_req, res) => {
   res.json({ ok: true });
 });
 
+app.use((err, _req, res, _next) => {
+  console.error(err);
+  return res.status(500).json({
+    message: err?.message || "Internal server error.",
+  });
+});
+
 export default app;

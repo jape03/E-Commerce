@@ -4,20 +4,23 @@ import { existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import crypto from "node:crypto";
+import { Redis } from "@upstash/redis";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const STORE_PATH = path.join(__dirname, "data", "store.json");
 
-const defaultStore = {
+const createDefaultStore = () => ({
   users: [],
   sessions: [],
   carts: {},
   orders: [],
-};
+});
 
-let memoryStore = { ...defaultStore };
 const isVercel = process.env.VERCEL === "1";
+const hasRedisConfig = Boolean(process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN);
+const redis = hasRedisConfig ? Redis.fromEnv() : null;
+const STORE_KEY = "ecommerce:store";
 
 const normalizeStore = (store) => ({
   users: Array.isArray(store?.users) ? store.users : [],
@@ -28,29 +31,37 @@ const normalizeStore = (store) => ({
 
 export const getStore = async () => {
   if (isVercel) {
-    return normalizeStore(memoryStore);
+    if (!redis) {
+      throw new Error("Missing Upstash Redis env vars. Set UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN.");
+    }
+    const fromRedis = await redis.get(STORE_KEY);
+    return normalizeStore(fromRedis ?? createDefaultStore());
   }
 
   if (!existsSync(STORE_PATH)) {
-    await saveStore(defaultStore);
-    return { ...defaultStore };
+    const initial = createDefaultStore();
+    await saveStore(initial);
+    return initial;
   }
 
   try {
     const content = await readFile(STORE_PATH, "utf8");
     return normalizeStore(JSON.parse(content));
   } catch {
-    memoryStore = normalizeStore(defaultStore);
-    await saveStore(memoryStore);
-    return { ...defaultStore };
+    const initial = createDefaultStore();
+    await saveStore(initial);
+    return initial;
   }
 };
 
 export const saveStore = async (store) => {
   const normalized = normalizeStore(store);
-  memoryStore = normalized;
 
   if (isVercel) {
+    if (!redis) {
+      throw new Error("Missing Upstash Redis env vars. Set UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN.");
+    }
+    await redis.set(STORE_KEY, normalized);
     return;
   }
 
