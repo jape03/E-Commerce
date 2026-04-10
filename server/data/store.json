@@ -1,0 +1,186 @@
+{
+  "users": [
+    {
+      "id": "USR-1770885877152-504",
+      "name": "john paul besagas",
+      "email": "jp@gmail.com",
+      "password": "123",
+      "createdAt": "2026-02-12T08:44:37.152Z"
+    },
+    {
+      "id": "USR-1772183885419-404",
+      "name": "John Paul Besagas",
+      "email": "johnpaulbesagas@gmail.com",
+      "password": "4156684John.",
+      "createdAt": "2026-02-27T09:18:05.419Z"
+    },
+    {
+      "id": "USR-1772690912020-97",
+      "name": "John Paul Besagas",
+      "email": "jpbesagas@gmail.com",
+      "password": "scrypt$7d057fce5106dbb2f7aa057e9731a4a9$170fe281ba2e5b306035e1c8edfc66ef8beff1b8d4ccf0336ff0a5aa8763e4f1d46b6d5a245e693bcf67646f00a6f2fbc8462320f59215094927dcf10e11697d",
+      "createdAt": "2026-03-05T06:08:32.061Z"
+    }
+  ],
+  "sessions": [],
+  "carts": {
+    "USR-1770885877152-504": [],
+    "USR-1772183885419-404": [],
+    "USR-1772690912020-97": []
+  },
+  "orders": [
+    {
+      "id": "ORD-1772690952979-DBC6",
+      "userId": "USR-1772690912020-97",
+      "customer": {
+        "name": "John Paul Besagas",
+        "email": "jpbesagas@gmail.com",
+        "phone": "09611974099",
+        "address": "Manila",
+        "city": "Manila",
+        "postal": "1000"
+      },
+      "paymentMethod": "card",
+      "items": [
+        {
+          "id": 6,
+          "name": "Stainless Steel Water Bottle 1L",
+          "price": 249,
+          "originalPrice": 549,
+          "discount": 55,
+          "category": "Home",
+          "sold": 3421,
+          "location": "Taguig",
+          "rating": 4.8,
+          "reviews": 401,
+          "stock": 700,
+          "image": "https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=900&auto=format&fit=crop&q=80",
+          "description": "Insulated bottle that keeps drinks cold or hot for hours.",
+          "qty": 1,
+          "lineTotal": 249
+        },
+        {
+          "id": 5,
+          "name": "Running Shoes Athletic Sport",
+          "price": 899,
+          "originalPrice": 1999,
+          "discount": 55,
+          "category": "Sports",
+          "sold": 1456,
+          "location": "Manila",
+          "rating": 4.6,
+          "reviews": 345,
+          "stock": 300,
+          "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=900&auto=format&fit=crop&q=80",
+          "description": "Lightweight running shoes with shock-absorbing sole.",
+          "qty": 1,
+          "lineTotal": 899
+        },
+        {
+          "id": 1,
+          "name": "Wireless Bluetooth Headphones Pro Max",
+          "price": 1299,
+          "originalPrice": 2999,
+          "discount": 57,
+          "category": "Electronics",
+          "sold": 1234,
+          "location": "Manila",
+          "rating": 4.8,
+          "reviews": 234,
+          "stock": 210,
+          "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=900&auto=format&fit=crop&q=80",
+          "description": "Premium wireless headphones with active noise cancellation, low-latency mode, and all-day battery life.",
+          "qty": 1,
+          "lineTotal": 1299
+        }
+      ],
+      "summary": {
+        "subtotal": 2447,
+        "shipping": 0,
+        "discount": 100,
+        "total": 2347
+      },
+      "status": "processing",
+      "createdAt": "2026-03-05T06:09:12.979Z"
+    },
+    {
+      "id": "ORD-1770885900310",
+      "userId": "USR-1770885877152-504",
+      "customer": {
+        "name": "john paul beagas",
+        "email": "jp@gmail.com",
+        "phone": "123",
+        "address": "manila",
+        "city": "city",
+        "postal": "1111"
+      },
+      "paymentMethod": "cod",
+      "items": [
+        {
+          "id": 2,
+          "name": "Cotton T-Shirt Unisex Premium Quality",
+          "price": 199,
+          "originalPrice": 499,
+          "discount": 60,
+          "category": "Fashion",
+          "sold": 2341,
+          "location": "Quezon City",
+          "rating": 4.5,
+          "reviews": 567,
+          "stock": 850,
+          "image": "https://via.placeholder.com/400?text=Fashion",
+          "description": "Soft cotton shirt with a comfortable fit for everyday wear.",
+          "qty": 1,
+          "lineTotal": 199
+        }
+      ],
+      "summary": {
+        "subtotal": 199,
+        "shipping": 50,
+        "discount": 0,
+        "total": 249
+      },
+      "status": "processing",
+      "createdAt": "2026-02-12T08:45:00.310Z"
+    },
+    {
+      "id": "ORD-1770884902330",
+      "customer": {
+        "name": "John Paul",
+        "email": "johnpaul@gmail.com",
+        "phone": "09123",
+        "address": "Manila",
+        "city": "City",
+        "postal": "1111"
+      },
+      "paymentMethod": "cod",
+      "items": [
+        {
+          "id": 6,
+          "name": "Stainless Steel Water Bottle 1L",
+          "price": 249,
+          "originalPrice": 549,
+          "discount": 55,
+          "category": "Home",
+          "sold": 3421,
+          "location": "Taguig",
+          "rating": 4.8,
+          "reviews": 401,
+          "stock": 700,
+          "image": "https://via.placeholder.com/400?text=Home",
+          "description": "Insulated bottle that keeps drinks cold or hot for hours.",
+          "qty": 1,
+          "lineTotal": 249
+        }
+      ],
+      "summary": {
+        "subtotal": 249,
+        "shipping": 50,
+        "discount": 0,
+        "total": 299
+      },
+      "status": "processing",
+      "createdAt": "2026-02-12T08:28:22.330Z"
+    }
+  ]
+}
